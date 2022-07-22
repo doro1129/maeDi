@@ -95,9 +95,9 @@ MonoBehaviour:
   axisDirection: 0
   BackgroundObject: {fileID: 1918259262473602705}
   HandleObject: {fileID: 1918259263156083938}
-  CircleBackground: {fileID: 215946156, guid: b5803cf1922744e69aed1aed15e0755b, type: 3}
-  HorizontalBackground: {fileID: -1796045294, guid: b5803cf1922744e69aed1aed15e0755b, type: 3}
-  VerticalBackground: {fileID: -410901806, guid: b5803cf1922744e69aed1aed15e0755b, type: 3}
+  CircleBackground: {fileID: 21300000, guid: 2c28074fd63504be1b4ae6a0627af956, type: 3}
+  HorizontalBackground: {fileID: 21300000, guid: 1b3382d8f8ede428cab022d8e557f792, type: 3}
+  VerticalBackground: {fileID: 21300000, guid: 007de674b01bf4919bf3f411d31d7152, type: 3}
 --- !u!1 &1918259262473602705
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 215946156, guid: b5803cf1922744e69aed1aed15e0755b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c28074fd63504be1b4ae6a0627af956, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -579863476, guid: b5803cf1922744e69aed1aed15e0755b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f1d2781d2206743f68737bbc611154a1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
