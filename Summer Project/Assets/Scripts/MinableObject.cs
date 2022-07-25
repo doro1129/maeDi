@@ -78,17 +78,22 @@ public class MinableObject : MonoBehaviour
         float random = Random.Range(0.0f, 1.0f);
         float sumOfProbability = DropItems.Sum(x => x.probability);
 
-        DropItems.Sort((x, y) => (int)(x.probability - y.probability));
-        GameObject item = DropItems[0].item;
+        float current = 0;
+        GameObject item = null;
 
-        for (int i = 1; i < DropItems.Count; i ++)
+        for (int i = 0; i < DropItems.Count; i ++)
         {
-            if (DropItems[i].probability / sumOfProbability >= random)
+            float probability = DropItems[i].probability / sumOfProbability;
+            current += probability;
+
+            if (current >= random)
             {
                 item = DropItems[i].item;
+                break;
             }
         }
 
+        Debug.Assert(item != null, "Item is null.");
         return item;
     }
 }
