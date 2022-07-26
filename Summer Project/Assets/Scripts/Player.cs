@@ -9,7 +9,6 @@ public class Player : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     private Animator m_Animator;
-    private bool isRightSide = true;
 
     void Awake()
     {
@@ -19,39 +18,19 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        // Get joystick position
+        Vector2 joystick = PlayerJoystick.Position;
+
         // Movement
-        transform.Translate(Vector3.up * Speed * PlayerJoystick.Vertical * Time.deltaTime);
-        transform.Translate(Vector3.right * Speed * PlayerJoystick.Horizontal * Time.deltaTime);
+        transform.Translate(new Vector3(1, 1, 0) * Speed * joystick * Time.deltaTime);
 
-        // When player move(doMoveL, doMoveR, doStop)
-        if (PlayerJoystick.Horizontal > 0)
-        {
-            isRightSide = true;
-            m_Animator.ResetTrigger("doStop");
-            m_Animator.ResetTrigger("doMoveL");
-            m_Animator.SetTrigger("doMoveR");
-        }
-        else if (PlayerJoystick.Horizontal < 0)
-        {
-            isRightSide = false;
-            m_Animator.ResetTrigger("doStop");
-            m_Animator.ResetTrigger("doMoveR");
-            m_Animator.SetTrigger("doMoveL");
-        }
+        // Set moving animation
+        m_Animator.SetBool("isMoving", joystick != Vector2.zero);
 
-        if (PlayerJoystick.Horizontal == 0 || PlayerJoystick.Vertical == 0)
-        {
-            //m_Animator.ResetTrigger("doMoveL");
-            //m_Animator.ResetTrigger("doMoveR");
-            //m_Animator.SetTrigger("doStop");
-
-            if (!isRightSide)
-            {
-                spriteRenderer.flipX = true;
-            }
-        }
+        // Set sprite direction
+        if (joystick.x != 0) spriteRenderer.flipX = joystick.x < 0;
     }
-
+    
     public void ToggleAxisDirection()
     {
         PlayerJoystick.AxisDirection = PlayerJoystick.AxisDirection == JoysticAxis.Both
