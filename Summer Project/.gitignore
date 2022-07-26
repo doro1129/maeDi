@@ -1,6 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/unity,visualstudiocode,visualstudio,xcode
 # Edit at https://www.toptal.com/developers/gitignore?templates=unity,visualstudiocode,visualstudio,xcode
 
+### OS generated ###
+.DS_Store
+[Tt]humbs.db
+
 ### Unity ###
 # This .gitignore file should be placed at the root of your Unity project directory
 #
@@ -12,6 +16,7 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
+/ProjectSettings/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
@@ -76,11 +81,7 @@ crashlytics-build.properties
 
 ### VisualStudioCode ###
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/*.code-snippets
+.vsconfig
 
 # Local History for Visual Studio Code
 .history/
