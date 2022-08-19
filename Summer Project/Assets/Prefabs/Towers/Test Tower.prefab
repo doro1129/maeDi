@@ -63,6 +63,7 @@ GameObject:
   - component: {fileID: 6343262126945035601}
   - component: {fileID: 6343262126945035600}
   - component: {fileID: 955119976393137753}
+  - component: {fileID: 8268081445677328629}
   - component: {fileID: 7635100410507708851}
   m_Layer: 0
   m_Name: Tower Collider
@@ -149,6 +150,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!54 &8268081445677328629
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6343262126945035605}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &7635100410507708851
 MonoBehaviour:
   m_ObjectHideFlags: 0
