@@ -71,7 +71,7 @@ public class FPSPlayer : MonoBehaviour
     /// <summary>
     /// To check the layer which is named 'what is ground'
     /// </summary>
-    public LayerMask whatIsGround;
+    public LayerMask Tile;
 
     /// <summary>
     /// It will 'True' when player is on ground or false when floating
@@ -79,7 +79,7 @@ public class FPSPlayer : MonoBehaviour
     public bool grounded;
 
     private Vector3 moveDirection;
-    private float playerHeight = 10;
+    private float RaycastDistance = 10;
     private float horizontalInput;
     private float verticalInput;
     
@@ -94,7 +94,7 @@ public class FPSPlayer : MonoBehaviour
     private void Update()
     {   
         // Check if it is attaching at the ground by using raycast as type of boolean
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsGround);
+        grounded = Physics.Raycast(transform.position, Vector3.down, RaycastDistance * 0.5f, Tile);
 
         MyInput();
         SpeedControl();
