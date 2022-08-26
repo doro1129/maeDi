@@ -158,7 +158,7 @@ public class FPSPlayer : MonoBehaviour
         }
 
         //in air
-        else if (!grounded)
+        else
         {
             rigidbody1.AddForce(moveDirection.normalized * MoveSpeed * 10f * AirMultiplier, ForceMode.Force);
         }
