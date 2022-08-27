@@ -146,15 +146,9 @@ public class FPSPlayer : MonoBehaviour
 
         if (grounded)
         {
-            rigidbody1.AddForce(moveDirection.normalized * MoveSpeed * 10f, ForceMode.Force);
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                MoveSpeed = RunSpeed;
-            }
-            else
-            {
-                MoveSpeed = 30;
-            }
+            var currentSpeed = Input.GetKey(KeyCode.LeftShift) ? RunSpeed : MoveSpeed;
+
+            rigidbody1.AddForce(moveDirection.normalized * currentSpeed * 10f, ForceMode.Force);
         }
 
         //in air
