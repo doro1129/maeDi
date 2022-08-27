@@ -138,16 +138,17 @@ MonoBehaviour:
   Attack_Time: 1
   Attack_Speed: 1
   Stamina: 100
-  MoveSpeed: 25
-  RunSpeed: 50
+  MoveSpeed: 10
+  RunSpeed: 30
   GroundDrag: 7
-  JumpForce: 30
+  JumpForce: 20
   JumpCooldown: 0.5
-  AirMultiplier: 0.4
+  AirMultiplier: 0.2
   Tile:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   grounded: 0
+  RaycastDistance: 1.1
 --- !u!1 &177946691606916218
 GameObject:
   m_ObjectHideFlags: 0
