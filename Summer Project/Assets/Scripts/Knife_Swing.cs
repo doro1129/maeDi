@@ -44,7 +44,7 @@ public class Knife_Swing : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             is_Swung = true;
-            anim.Play("Knife_Swing");
+            anim.SetTrigger("Swing");
             Invoke(nameof(Reset_Swing), Attack_time);
         }
 
