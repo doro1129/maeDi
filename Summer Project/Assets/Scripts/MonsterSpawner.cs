@@ -12,35 +12,37 @@ public struct StageRound
 [Serializable]
 public struct MonsterSpawnOrder
 {
-    public MonsterType Type;
-    public SpawnTrasform Position;
+    public int Type;
+    public int SpawnPosition;
+    public int DestinationPosition;
     public int Length;
 }
 
-public enum MonsterType { Bear, Monkey, Penguin, Pig, Rabbit, Sheep }
-public enum SpawnTrasform { TopLeft, TopRight, BottomLeft, BottomRight }
-
 public class MonsterSpawner : MonoBehaviour
 {
-    public List<MonsterData> monsterDatas;
     public List<GameObject> monsterPrefab;
     public Transform[] spawnTransforms;
+    public Transform[] destinationTransforms;
 
     public List<StageRound> rounds = new List<StageRound>();
 
-    private int _currentCount = 0;
-    private int _currentRound = 0;
-    private int _currentEnemy = 0;
+    private int currentCount = 0;
+    private int currentRound = 0;
+    private int currentEnemy = 0;
 
     float roundTimer;
     float spawnTimer;
+    private Monster monster;
+
     public int roundDelay;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         roundTimer = 0.0f;
         spawnTimer = 0.0f;
+
+        monster = GetComponent<Monster>();
     }
 
     private void Update()
@@ -53,37 +55,37 @@ public class MonsterSpawner : MonoBehaviour
 
     public void SpawnMonster()
     {
-        if (_currentRound < rounds.Count &&
+        if (currentRound < rounds.Count &&
             roundTimer >= roundDelay)
         {
-            MonsterSpawnOrder enemy = rounds[_currentRound].SpawnOrder[_currentEnemy];
-            int type = (int)enemy.Type;
-            int position = (int)enemy.Position;
+            MonsterSpawnOrder enemy = rounds[currentRound].SpawnOrder[currentEnemy];
+            Monster curmonster = monsterPrefab[enemy.Type].GetComponent<Monster>();
 
-            if (spawnTimer < monsterDatas[type].spawnDelay) return;
+            if (spawnTimer < curmonster.monsterData.spawnDelay) return;
 
-            GameObject enemyObject = monsterPrefab[type];
+            GameObject enemyObject = monsterPrefab[enemy.Type];
 
             Monster newMonster = Instantiate(enemyObject,
-                spawnTransforms[position].position,
+                spawnTransforms[enemy.SpawnPosition].position,
                 enemyObject.transform.rotation).GetComponent<Monster>();
-            newMonster.monsterData = monsterDatas[type];
             newMonster.name = newMonster.monsterData.monsterName;
-            newMonster.PrintMonsterData();
+            //newMonster.PrintMonsterData();
+
+            newMonster.MoveTo(destinationTransforms[enemy.DestinationPosition].position);
 
             spawnTimer = 0.0f;
-            _currentCount++;
+            currentCount++;
 
-            if (_currentCount >= enemy.Length)
+            if (currentCount >= enemy.Length)
             {
-                _currentCount = 0;
-                _currentEnemy++;
+                currentCount = 0;
+                currentEnemy++;
             }
 
-            if (_currentEnemy >= rounds[_currentRound].SpawnOrder.Count)
+            if (currentEnemy >= rounds[currentRound].SpawnOrder.Count)
             {
-                _currentEnemy = 0;
-                _currentRound++;
+                currentEnemy = 0;
+                currentRound++;
                 roundTimer = 0.0f;
             }
         }

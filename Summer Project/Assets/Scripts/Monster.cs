@@ -1,16 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Monster : MonoBehaviour
 {
     public MonsterData monsterData;
 
-    void Update()
+    private float moveSpeed = 5.0f;
+    private NavMeshAgent navMeshAgent;
+
+    private Vector3 goal;
+
+    private void Awake()
     {
-        Move();
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
+    /*
     public void PrintMonsterData()
     {
         Debug.Log("몬스터 이름 : " + monsterData.monsterName);
@@ -21,9 +28,35 @@ public class Monster : MonoBehaviour
         Debug.Log("쿨타임 : " + monsterData.cooldown);
         Debug.Log("------------------------------------------");
     }
+    */
 
-    void Move()
+    public void MoveTo(Vector3 goalPosition)
     {
-        transform.Translate(Vector3.right * Time.deltaTime);
+        StopCoroutine("OnMove");
+        navMeshAgent.speed = moveSpeed;
+        navMeshAgent.SetDestination(goalPosition);
+        goal = goalPosition;
+        StartCoroutine("OnMove");
+    }
+
+    IEnumerator OnMove()
+    {
+        while( true )
+        {
+            if ( Vector3.Distance(goal, transform.position) < 3f )
+            {
+                Destroy(gameObject);
+            }
+
+            if ( Vector3.Distance(navMeshAgent.destination, transform.position) < 0.15f )
+            {
+                transform.position = navMeshAgent.destination;
+                navMeshAgent.ResetPath();
+
+                break;
+            }
+
+            yield return null;
+        }
     }
 }
