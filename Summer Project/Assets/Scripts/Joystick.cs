@@ -52,9 +52,9 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     [SerializeField] private JoysticAxis axisDirection;
 
     // Joystick parts
-    [Header("Objects")]
-    public GameObject BackgroundObject;
-    public GameObject HandleObject;
+    [Header("Rects")]
+    public RectTransform BackgroundRect;
+    public RectTransform HandleRect;
 
     // When AxisDircetion changes, the background sprites changes.
     // If the sprite is null, it is not changed.
@@ -88,15 +88,15 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     private Vector2 position = Vector2.zero;
     private Vector2 lastPosition;
-    private RectTransform backgroundRectTransform;
-    private RectTransform handleRectTransform;
+
+
+
 
     private void Awake()
     {
-        backgroundRectTransform = GetComponent<RectTransform>();
-        handleRectTransform = HandleObject.GetComponent<RectTransform>();
+    }
 
-        SetAxisDirection(axisDirection);
+
     }
 
     private void SetAxisDirection(JoysticAxis value)
@@ -131,16 +131,16 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         position = Vector2.zero;
         
         // Reset handle anchoredPosition
-        handleRectTransform.anchoredPosition = Vector2.zero;
+        HandleRect.anchoredPosition = Vector2.zero;
     }
 
     public virtual void OnDrag(PointerEventData eventData)
     {
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            backgroundRectTransform, eventData.position, eventData.pressEventCamera, out position))
+            BackgroundRect, eventData.position, eventData.pressEventCamera, out position))
         {
             // Set position
-            position /= backgroundRectTransform.sizeDelta * StickSensitive;
+            position /= BackgroundRect.sizeDelta * StickSensitive;
 
             // Check AxisDirection
             if (axisDirection == JoysticAxis.Horizontal) position.y = 0;
