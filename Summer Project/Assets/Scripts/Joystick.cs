@@ -47,9 +47,12 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     /// </summery>
     public int StickMoveLimit = 10;
 
-    // Stick movement axix direction
-    // Restricting movement horizontal or vertically.
-    [SerializeField] private JoysticAxis axisDirection;
+    /// <summary>
+    /// Stick movement axix direction
+    /// Restricting movement horizontal or vertically
+    /// </summary>
+    [Header("Stick Axis Direction")]
+    public JoysticAxis AxisDirection;
 
     // Joystick parts
     [Header("Rects")]
@@ -62,14 +65,6 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     public Sprite CircleBackground;
     public Sprite HorizontalBackground;
     public Sprite VerticalBackground;
-
-    /// <summary>
-    /// Restricting movement horizontal or vertically
-    /// </summary>
-    public JoysticAxis AxisDirection {
-        set { SetAxisDirection(value); }
-        get { return axisDirection; }
-    }
 
     /// <summary>
     /// The stick position
@@ -88,35 +83,30 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     private Vector2 position = Vector2.zero;
     private Vector2 lastPosition;
-
-
-
+    private Image backgroundImage;
 
     private void Awake()
     {
+        backgroundImage = BackgroundRect.GetComponent<Image>();
     }
 
-
-    }
-
-    private void SetAxisDirection(JoysticAxis value)
+    private void Update()
     {
-        // Set an AxisDirection
-        axisDirection = value;
+        SetJoystickSprite();
+    }
 
-        // Get an Image instance
-        Image backgroundImage = BackgroundObject.GetComponent<Image>();
-
+    private void SetJoystickSprite()
+    {
         // Bath
-        if (CircleBackground != null && axisDirection == JoysticAxis.Both)
+        if (CircleBackground != null && AxisDirection == JoysticAxis.Both)
             backgroundImage.sprite = CircleBackground;
 
         // Horizontal
-        else if (HorizontalBackground != null && axisDirection == JoysticAxis.Horizontal)
+        else if (HorizontalBackground != null && AxisDirection == JoysticAxis.Horizontal)
             backgroundImage.sprite = HorizontalBackground;
 
         // Vertical
-        else if (VerticalBackground != null && axisDirection == JoysticAxis.Vertical)
+        else if (VerticalBackground != null && AxisDirection == JoysticAxis.Vertical)
             backgroundImage.sprite = VerticalBackground;
     }
 
@@ -133,7 +123,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         // Reset handle anchoredPosition
         HandleRect.anchoredPosition = Vector2.zero;
     }
-
+ 
     public virtual void OnDrag(PointerEventData eventData)
     {
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -143,8 +133,8 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
             position /= BackgroundRect.sizeDelta * StickSensitive;
 
             // Check AxisDirection
-            if (axisDirection == JoysticAxis.Horizontal) position.y = 0;
-            else if (axisDirection == JoysticAxis.Vertical) position.x = 0;
+            if (AxisDirection == JoysticAxis.Horizontal) position.y = 0;
+            else if (AxisDirection == JoysticAxis.Vertical) position.x = 0;
 
             // When position is too far, normalize position magnitude to 1
             if (position.magnitude > 1.0f) position = position.normalized;
