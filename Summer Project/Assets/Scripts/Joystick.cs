@@ -44,8 +44,10 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     /// <summery>
     /// Stick movement limit
+    /// (0 : Circle border, -1 : Inside the circle, +1 : Outside the circle)
     /// </summery>
-    public int StickMoveLimit = 10;
+    [Range(-3.0f, 3.0f)]
+    public float StickMoveLimit = 0;
 
     /// <summary>
     /// Stick movement axix direction
@@ -140,7 +142,8 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
             if (position.magnitude > 1.0f) position = position.normalized;
 
             // Set handle anchoredPosition
-            handleRectTransform.anchoredPosition = position * (backgroundRectTransform.position / StickMoveLimit);
+            Vector3 moveLimit = (BackgroundRect.sizeDelta + (HandleRect.sizeDelta * StickMoveLimit)) / 2;
+            HandleRect.anchoredPosition = position * moveLimit;
         }
     }
 }
