@@ -39,7 +39,8 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     /// Stick sensitive value (range from 0 to 1)
     /// Do not enter a value that exceeds the range.
     /// </summary>
-    [Range(0, 1)] public float StickSensitive = 1;
+    [Range(0.0f, 1.0f)]
+    public float StickSensitive = 1;
 
     /// <summery>
     /// Stick movement limit
