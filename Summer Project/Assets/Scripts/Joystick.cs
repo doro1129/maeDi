@@ -33,6 +33,8 @@ public enum JoysticAxis
 /// </example>
 public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
+    [Header("Stick Move")]
+
     /// <summary>
     /// Stick sensitive value (range from 0 to 1)
     /// Do not enter a value that exceeds the range.
