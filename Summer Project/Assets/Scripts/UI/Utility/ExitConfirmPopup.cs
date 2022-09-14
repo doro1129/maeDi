@@ -8,9 +8,16 @@ public class ExitConfirmPopup : MonoBehaviour
 
     private void Update()
     {
-        if (popup == null && Application.platform == RuntimePlatform.Android && Input.GetKey(KeyCode.Escape))
+        if (popup == null && Application.platform == RuntimePlatform.Android && Input.GetKeyDown(KeyCode.Escape))
         {
-            this.OpenPopup();
+            if (PopupManager.Instance.IsEmpty())
+            {
+                this.OpenPopup();
+            }
+            else
+            {
+                PopupManager.Instance.Close();
+            }
         }
     }
 
