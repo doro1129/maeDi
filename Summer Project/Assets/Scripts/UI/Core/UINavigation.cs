@@ -18,6 +18,8 @@ public class UINavigation : MonoBehaviour
 
     private Stack<UIView> _viewStack = new();
 
+    public bool IsEmpty() => _viewStack.Count == 0;
+
     private void Awake()
     {
         if (RootView != null)
