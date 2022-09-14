@@ -32,7 +32,6 @@ public class MonsterSpawner : MonoBehaviour
 
     float roundTimer;
     float spawnTimer;
-    private Monster monster;
 
     public int roundDelay;
 
@@ -41,8 +40,6 @@ public class MonsterSpawner : MonoBehaviour
     {
         roundTimer = 0.0f;
         spawnTimer = 0.0f;
-
-        monster = GetComponent<Monster>();
     }
 
     private void Update()
@@ -69,7 +66,6 @@ public class MonsterSpawner : MonoBehaviour
                 spawnTransforms[enemy.SpawnPosition].position,
                 enemyObject.transform.rotation).GetComponent<Monster>();
             newMonster.name = newMonster.monsterData.monsterName;
-            //newMonster.PrintMonsterData();
 
             newMonster.MoveTo(destinationTransforms[enemy.DestinationPosition].position);
 

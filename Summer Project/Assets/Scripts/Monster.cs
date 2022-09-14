@@ -17,19 +17,6 @@ public class Monster : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
-    /*
-    public void PrintMonsterData()
-    {
-        Debug.Log("몬스터 이름 : " + monsterData.monsterName);
-        Debug.Log("체력 : " + monsterData.hp);
-        Debug.Log("공격력 : " + monsterData.atk);
-        Debug.Log("공격 속도 : " + monsterData.attackSpeed);
-        Debug.Log("이동 속도 : " + monsterData.moveSpeed);
-        Debug.Log("쿨타임 : " + monsterData.cooldown);
-        Debug.Log("------------------------------------------");
-    }
-    */
-
     public void MoveTo(Vector3 goalPosition)
     {
         StopCoroutine("OnMove");
@@ -43,6 +30,8 @@ public class Monster : MonoBehaviour
     {
         while( true )
         {
+            //임시로 몬스터가 목적지 근처로 가면 destroy함.
+            //이후에는 player가 hp를 다 깎아야 destroy 가능하도록 수정할 예정.
             if ( Vector3.Distance(goal, transform.position) < 3f )
             {
                 Destroy(gameObject);

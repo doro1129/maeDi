@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7201593726212989021
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7201593726212989019}
+  - component: {fileID: 7201593726212989018}
+  m_Layer: 0
+  m_Name: Monster Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7201593726212989019
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7201593726212989021}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7201593726212989018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7201593726212989021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 269a3c9e2144049518a0645da8597c90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterPrefab:
+  - {fileID: 7319615696390266531, guid: e1e3ab7e300fe4ead946f1e5554e6da5, type: 3}
+  - {fileID: 2802528286326922899, guid: a1ac669d688034303afcb01ca48200df, type: 3}
+  - {fileID: 7898439228705631744, guid: 7e5adde72938a4aed9928e2da22f0365, type: 3}
+  - {fileID: 2380903972771010697, guid: 1bfb18c647f22427aac3600b22e80ee5, type: 3}
+  - {fileID: 1826023856357728216, guid: 447fc8a2fc12d4663ae2e1f163f448a0, type: 3}
+  - {fileID: 859951353559479999, guid: c85a50869547a44b389410f58e4e42a8, type: 3}
+  spawnTransforms:
+  - {fileID: 0}
+  - {fileID: 0}
+  destinationTransforms:
+  - {fileID: 0}
+  - {fileID: 0}
+  rounds:
+  - SpawnOrder:
+    - Type: 0
+      SpawnPosition: 0
+      DestinationPosition: 0
+      Length: 6
+    - Type: 1
+      SpawnPosition: 1
+      DestinationPosition: 1
+      Length: 5
+  - SpawnOrder:
+    - Type: 2
+      SpawnPosition: 0
+      DestinationPosition: 0
+      Length: 4
+    - Type: 3
+      SpawnPosition: 1
+      DestinationPosition: 1
+      Length: 3
+    - Type: 4
+      SpawnPosition: 0
+      DestinationPosition: 0
+      Length: 2
+  - SpawnOrder:
+    - Type: 5
+      SpawnPosition: 1
+      DestinationPosition: 1
+      Length: 1
+  roundDelay: 3
