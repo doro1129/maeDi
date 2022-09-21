@@ -12607,6 +12607,34 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5974362095393144320, guid: b36d86878cf83425198355083a3dcf3e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5974362095393144320, guid: b36d86878cf83425198355083a3dcf3e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5974362097094072810, guid: b36d86878cf83425198355083a3dcf3e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5974362097094072810, guid: b36d86878cf83425198355083a3dcf3e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 5974362097094072810, guid: b36d86878cf83425198355083a3dcf3e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 5974362097094072810, guid: b36d86878cf83425198355083a3dcf3e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 5974362097094072811, guid: b36d86878cf83425198355083a3dcf3e, type: 3}
+      propertyPath: StickMoveLimit
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8008329864538255903, guid: b36d86878cf83425198355083a3dcf3e, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -180.69995
