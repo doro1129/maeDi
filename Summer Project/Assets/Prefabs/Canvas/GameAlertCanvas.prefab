@@ -980,6 +980,8 @@ GameObject:
   - component: {fileID: 2506128910521227489}
   - component: {fileID: 2506128910521227491}
   - component: {fileID: 2506128910521227490}
+  - component: {fileID: 43358304922594957}
+  - component: {fileID: 7334574735089177284}
   m_Layer: 5
   m_Name: Alert Panel
   m_TagString: Untagged
@@ -1048,6 +1050,31 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &43358304922594957
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2506128910521227488}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &7334574735089177284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2506128910521227488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 026e8386c55b44ea7a9c6d3760384c7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isReset: 1
 --- !u!1 &2506128910524074341
 GameObject:
   m_ObjectHideFlags: 0
