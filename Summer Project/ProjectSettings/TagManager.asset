@@ -8,6 +8,7 @@ TagManager:
   - MinableObjectTile
   - MonsterRoadTile
   - TowerTile
+  - Enemy
   layers:
   - Default
   - TransparentFX

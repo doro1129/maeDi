@@ -35,11 +35,11 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 450}
-  m_Pivot: {x: 0.000000014901161, y: 0.49999994}
+  m_SizeDelta: {x: 300, y: 300}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1918259262048002427
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -90,11 +90,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 824d58310176e499791601ff956d8a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StickSensitive: 0.3
-  StickMoveLimit: 10
-  axisDirection: 0
-  BackgroundObject: {fileID: 1918259262473602705}
-  HandleObject: {fileID: 1918259263156083938}
+  StickSensitive: 1
+  StickMoveLimit: 0
+  AxisDirection: 0
+  BackgroundRect: {fileID: 1918259262473602706}
+  HandleRect: {fileID: 1918259263156083939}
   CircleBackground: {fileID: 21300000, guid: 2c28074fd63504be1b4ae6a0627af956, type: 3}
   HorizontalBackground: {fileID: 21300000, guid: 1b3382d8f8ede428cab022d8e557f792, type: 3}
   VerticalBackground: {fileID: 21300000, guid: 007de674b01bf4919bf3f411d31d7152, type: 3}
@@ -132,10 +132,10 @@ RectTransform:
   m_Father: {fileID: 1918259262048002424}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 49.999996, y: 50}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1918259262473602708
 CanvasRenderer:
@@ -211,7 +211,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 32, y: 32}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1918259263156083941
 CanvasRenderer:

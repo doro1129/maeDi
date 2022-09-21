@@ -33,25 +33,33 @@ public enum JoysticAxis
 /// </example>
 public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
+    [Header("Stick Move")]
+
     /// <summary>
     /// Stick sensitive value (range from 0 to 1)
     /// Do not enter a value that exceeds the range.
     /// </summary>
-    [Range(0, 1)] public float StickSensitive = 1;
+    [Range(0.0f, 1.0f)]
+    public float StickSensitive = 1;
 
     /// <summery>
     /// Stick movement limit
+    /// (0 : Circle border, -1 : Inside the circle, +1 : Outside the circle)
     /// </summery>
-    public int StickMoveLimit = 10;
+    [Range(-3.0f, 3.0f)]
+    public float StickMoveLimit = 0;
 
-    // Stick movement axix direction
-    // Restricting movement horizontal or vertically.
-    [SerializeField] private JoysticAxis axisDirection;
+    /// <summary>
+    /// Stick movement axix direction
+    /// Restricting movement horizontal or vertically
+    /// </summary>
+    [Header("Stick Axis Direction")]
+    public JoysticAxis AxisDirection;
 
     // Joystick parts
-    [Header("Objects")]
-    public GameObject BackgroundObject;
-    public GameObject HandleObject;
+    [Header("Rects")]
+    public RectTransform BackgroundRect;
+    public RectTransform HandleRect;
 
     // When AxisDircetion changes, the background sprites changes.
     // If the sprite is null, it is not changed.
@@ -59,14 +67,6 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     public Sprite CircleBackground;
     public Sprite HorizontalBackground;
     public Sprite VerticalBackground;
-
-    /// <summary>
-    /// Restricting movement horizontal or vertically
-    /// </summary>
-    public JoysticAxis AxisDirection {
-        set { SetAxisDirection(value); }
-        get { return axisDirection; }
-    }
 
     /// <summary>
     /// The stick position
@@ -85,35 +85,30 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     private Vector2 position = Vector2.zero;
     private Vector2 lastPosition;
-    private RectTransform backgroundRectTransform;
-    private RectTransform handleRectTransform;
+    private Image backgroundImage;
 
     private void Awake()
     {
-        backgroundRectTransform = GetComponent<RectTransform>();
-        handleRectTransform = HandleObject.GetComponent<RectTransform>();
-
-        SetAxisDirection(axisDirection);
+        backgroundImage = BackgroundRect.GetComponent<Image>();
     }
 
-    private void SetAxisDirection(JoysticAxis value)
+    private void Update()
     {
-        // Set an AxisDirection
-        axisDirection = value;
+        SetJoystickSprite();
+    }
 
-        // Get an Image instance
-        Image backgroundImage = BackgroundObject.GetComponent<Image>();
-
+    private void SetJoystickSprite()
+    {
         // Bath
-        if (CircleBackground != null && axisDirection == JoysticAxis.Both)
+        if (CircleBackground != null && AxisDirection == JoysticAxis.Both)
             backgroundImage.sprite = CircleBackground;
 
         // Horizontal
-        else if (HorizontalBackground != null && axisDirection == JoysticAxis.Horizontal)
+        else if (HorizontalBackground != null && AxisDirection == JoysticAxis.Horizontal)
             backgroundImage.sprite = HorizontalBackground;
 
         // Vertical
-        else if (VerticalBackground != null && axisDirection == JoysticAxis.Vertical)
+        else if (VerticalBackground != null && AxisDirection == JoysticAxis.Vertical)
             backgroundImage.sprite = VerticalBackground;
     }
 
@@ -128,26 +123,27 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         position = Vector2.zero;
         
         // Reset handle anchoredPosition
-        handleRectTransform.anchoredPosition = Vector2.zero;
+        HandleRect.anchoredPosition = Vector2.zero;
     }
-
+ 
     public virtual void OnDrag(PointerEventData eventData)
     {
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            backgroundRectTransform, eventData.position, eventData.pressEventCamera, out position))
+            BackgroundRect, eventData.position, eventData.pressEventCamera, out position))
         {
             // Set position
-            position /= backgroundRectTransform.sizeDelta * StickSensitive;
+            position /= BackgroundRect.sizeDelta * StickSensitive;
 
             // Check AxisDirection
-            if (axisDirection == JoysticAxis.Horizontal) position.y = 0;
-            else if (axisDirection == JoysticAxis.Vertical) position.x = 0;
+            if (AxisDirection == JoysticAxis.Horizontal) position.y = 0;
+            else if (AxisDirection == JoysticAxis.Vertical) position.x = 0;
 
             // When position is too far, normalize position magnitude to 1
             if (position.magnitude > 1.0f) position = position.normalized;
 
             // Set handle anchoredPosition
-            handleRectTransform.anchoredPosition = position * (backgroundRectTransform.position / StickMoveLimit);
+            Vector3 moveLimit = (BackgroundRect.sizeDelta + (HandleRect.sizeDelta * StickMoveLimit)) / 2;
+            HandleRect.anchoredPosition = position * moveLimit;
         }
     }
 }
