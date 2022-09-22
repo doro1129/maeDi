@@ -1,14 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public static class GameOptions
 {
-    public static string Version = "v0.1 beta";
+    public static event Action ChangeEvent;
 
-    public static float TotalSoundVolume = 1.0f;
-    public static float BGMSoundVolume = 1.0f;
-    public static float SFXSoundVolume = 1.0f;
+    public static readonly string Version = "v0.1 beta";
+
+    public static float TotalSoundVolume
+    {
+        get => GameOptions.totalSoundVolume;
+
+        set
+        {
+            GameOptions.totalSoundVolume = value;
+            GameOptions.ChangeEvent();
+        }
+    }
+
+    public static float BGMSoundVolume
+    {
+        get => GameOptions.bgmSoundVolume;
+
+        set
+        {
+            GameOptions.bgmSoundVolume = value;
+            GameOptions.ChangeEvent();
+        }
+    }
+    public static float SFXSoundVolume
+    {
+        get => GameOptions.sfxSoundVolume;
+
+        set
+        {
+            GameOptions.sfxSoundVolume = value;
+            GameOptions.ChangeEvent();
+        }
+    }
 
     public static readonly Vector2[] ScreenResolutionsOptions = new Vector2[] {
         new Vector2(800, 480),
@@ -20,5 +49,24 @@ public static class GameOptions
         new Vector2(3840, 2160),
     };
 
-    public static int ScreenResolutionOptionIndex = 1;
+    public static int ScreenResolutionOptionIndex
+    {
+        get => GameOptions.screenResolutionOptionIndex;
+
+        set
+        {
+            if (value >= GameOptions.ScreenResolutionsOptions.Length)
+            {
+                throw new Exception("ScreenResolutionOptionIndex: out of range");
+            }
+
+            GameOptions.screenResolutionOptionIndex = value;
+            GameOptions.ChangeEvent();
+        }
+    }
+
+    private static float totalSoundVolume = 1.0f;
+    private static float bgmSoundVolume = 1.0f;
+    private static float sfxSoundVolume = 1.0f;
+    private static int screenResolutionOptionIndex = 0;
 }
