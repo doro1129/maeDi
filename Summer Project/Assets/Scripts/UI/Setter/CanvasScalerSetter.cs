@@ -4,7 +4,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Canvas scaler setter for screen resolution option
 /// </summary>
-public class SetterCanvasScaler : MonoBehaviour
+public class CanvasScalerSetter : MonoBehaviour
 {
     /// <summary>
     /// Target canvas scaler
