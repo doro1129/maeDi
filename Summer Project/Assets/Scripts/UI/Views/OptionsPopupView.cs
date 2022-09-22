@@ -1,5 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using TMPro;
 
@@ -28,5 +28,10 @@ public class OptionsPopupView : UIView
     public void Close()
     {
         PopupManager.Instance.Close();
+    }
+
+    public void OnChangeScreenResolution(TMP_Dropdown dropdown)
+    {
+        GameOptions.ScreenResolutionOptionIndex = dropdown.value;
     }
 }
