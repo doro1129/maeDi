@@ -8322,7 +8322,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000015258789}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 730}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &5639620578730979275
@@ -8876,7 +8876,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: -0.000034689903}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0.42105103, y: 230}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &5639620579005471748
@@ -9652,6 +9652,8 @@ GameObject:
   - component: {fileID: 5639620579486061320}
   - component: {fileID: 5639620579486061321}
   - component: {fileID: 5639620579486061366}
+  - component: {fileID: 5639620578243106988}
+  - component: {fileID: 5639620578243106987}
   m_Layer: 5
   m_Name: GameInventoryCanvas
   m_TagString: Untagged
@@ -9742,6 +9744,31 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &5639620578243106988
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5639620579486061367}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &5639620578243106987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5639620579486061367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 026e8386c55b44ea7a9c6d3760384c7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isReset: 1
 --- !u!1 &5639620579506625297
 GameObject:
   m_ObjectHideFlags: 0

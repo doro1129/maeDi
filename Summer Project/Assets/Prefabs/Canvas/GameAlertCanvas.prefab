@@ -1224,6 +1224,8 @@ GameObject:
   - component: {fileID: 2506128910599865095}
   - component: {fileID: 2506128910599865094}
   - component: {fileID: 2506128910599865093}
+  - component: {fileID: 2506128910969553271}
+  - component: {fileID: 2506128910969553270}
   m_Layer: 5
   m_Name: GameAlertCanvas
   m_TagString: Untagged
@@ -1314,6 +1316,31 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &2506128910969553271
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2506128910599865092}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &2506128910969553270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2506128910599865092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 026e8386c55b44ea7a9c6d3760384c7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isReset: 1
 --- !u!1 &2506128910602130660
 GameObject:
   m_ObjectHideFlags: 0
