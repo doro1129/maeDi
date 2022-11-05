@@ -1,11 +1,51 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Navigator : MonoBehaviour
 {
     public GameMap Target;
+
+    private static Vector3Int[] Directions = {
+        new Vector3Int( 0, -1,  0),
+        new Vector3Int( 0,  1,  0),
+        new Vector3Int(-1,  0,  0),
+        new Vector3Int( 1,  0,  0),
+        new Vector3Int(-1, -1,  0),
+        new Vector3Int(-1,  1,  0),
+        new Vector3Int( 1, -1,  0),
+        new Vector3Int( 1,  1,  0),
+
+        new Vector3Int( 0, -1, -1),
+        new Vector3Int( 0,  1, -1),
+        new Vector3Int(-1,  0, -1),
+        new Vector3Int( 1,  0, -1),
+        new Vector3Int(-1, -1, -1),
+        new Vector3Int(-1,  1, -1),
+        new Vector3Int( 1, -1, -1),
+        new Vector3Int( 1,  1, -1),
+        
+        new Vector3Int( 0, -1,  1),
+        new Vector3Int( 0,  1,  1),
+        new Vector3Int(-1,  0,  1),
+        new Vector3Int( 1,  0,  1),
+        new Vector3Int(-1, -1,  1),
+        new Vector3Int(-1,  1,  1),
+        new Vector3Int( 1, -1,  1),
+        new Vector3Int( 1,  1,  1),
+    };
+
+    private void Start()
+    {
+        // var firstPosition = this.Target.Graph[0][0, 0].transform.position;
+        // Debug.Log($"firstPosition = {firstPosition}");
+        // Debug.Log($"maxSize = {this.Target.MaxSize}");
+
+        var startPosition = new Vector3Int(17, 5, 0);
+        //var destinationPosition = new Vector3Int(4, 5, 2);
+        var destinationPosition = new Vector3Int(5, 19, 0);
+        var result = ShortestPath(startPosition, destinationPosition, 24);
+    }
 
     private void FillMapArray<T>(ref T[][,] array, T value)
     {
@@ -17,6 +57,8 @@ public class Navigator : MonoBehaviour
         {
             var height = this.Target.Graph[z].GetLength(0);
             var width = this.Target.Graph[z].GetLength(1);
+
+            array[z] = new T[height, width];
 
             for (int y = 0; y < height; y++)
             {
@@ -37,45 +79,31 @@ public class Navigator : MonoBehaviour
         return 4 * (dx + dy + dz);
     }
 
+    private void HighlightTile(Vector3Int position, Color color)
+    {
+        var tileObject = this.Target.Graph[position.z][position.y, position.x];
+        var meshRenderer = tileObject.GetComponent<MeshRenderer>();
+
+        var highlightMaterial = new Material(meshRenderer.sharedMaterial);
+        highlightMaterial.color = color;
+
+        meshRenderer.sharedMaterial = highlightMaterial;
+    }
+
     public List<Transform> ShortestPath(
         Vector3Int startPosition,
         Vector3Int destinationPosition,
         int directionCount = 4,
-        bool isThreeDimenstional = true
+        bool isThreeDimenstional = true,
+        int maxSearchCount = 1000
     )
     {
-        // Check parameters
-        Debug.Assert(directionCount == 4 || directionCount == 8, "The directionCount is expected 4 or 8");
-
-        // Directions
-        var directions = new List<Vector3Int>();
-
-        directions.Add(Vector3Int.up);
-        directions.Add(Vector3Int.right);
-        directions.Add(Vector3Int.down);
-        directions.Add(Vector3Int.left);
-
-        // TODO: Working later
-        // Reset the directions
-        // {
-        //     int y;
-        //     int x;
-
-        //     for (y = -1; y <= 1; y++)
-        //     {
-        //         for (x = -1; x <= 1; x++)
-        //         {
-        //             directions.Add(new Vector3(x, y));
-        //         }
-        //     }
-        // }
-
         // Map size
         var mapSize = this.Target.MaxSize;
 
         // The distances of between start to destination in the map
         var distances = new float[mapSize.z][,];
-        this.FillMapArray<float>(ref distances, -1);
+        this.FillMapArray<float>(ref distances, float.MaxValue);
 
         //
         var prev = new Vector3Int[mapSize.z][,];
@@ -91,10 +119,22 @@ public class Navigator : MonoBehaviour
         //
         nodes.Push(0, startPosition);
 
+        // Counter
+        int counter = 0;
+
         while (!nodes.IsEmpty())
         {
+            counter++;
+
+            if (counter > maxSearchCount)
+            {
+                throw new Exception("Navigator: Exceeded the MaxSearchCount");
+            }
+
             var current = nodes.Pop().Value;
             visited[current.z][current.y, current.x] = true;
+
+            HighlightTile(current, Color.red);
 
             if (current == destinationPosition)
             {
@@ -102,15 +142,11 @@ public class Navigator : MonoBehaviour
                 break;
             }
 
-            foreach (var direction in directions)
+            for (int i = 0; i < directionCount; i++)
             {
-                var nextPosition = current + direction;
+                var nextPosition = current + Navigator.Directions[i];
 
-                if (
-                    nextPosition.z < 0 || nextPosition.z >= visited.Length ||
-                    nextPosition.y < 0 || nextPosition.y >= visited[nextPosition.z].GetLength(0) || 
-                    nextPosition.x < 0 || nextPosition.x >= visited[nextPosition.z].GetLength(1)
-                )
+                if (!this.Target.HasTile(nextPosition))
                 {
                     // Out of range
                     continue;
@@ -118,19 +154,22 @@ public class Navigator : MonoBehaviour
 
                 if (visited[nextPosition.z][nextPosition.y, nextPosition.x])
                 {
-                    // Visited
+                    // Already visited
                     continue;
                 }
 
-                var nextDistance = this.ManhattanDistance(nextPosition, destinationPosition);
+                //var nextDistance = this.ManhattanDistance(nextPosition, destinationPosition);
+                var nextDistance = Vector3Int.Distance(nextPosition, destinationPosition);
                 if (nextDistance > distances[nextPosition.z][nextPosition.y, nextPosition.x])
                 {
+                    // The nextDistance is not best distance
                     continue;
                 }
 
                 var tagName = this.Target.Graph[nextPosition.z][nextPosition.y, nextPosition.x].tag;
                 if (GameMap.GetTileType(tagName) != GameMap.TileType.MonsterRoad)
                 {
+                    // The next tile is not "MonsterRoad"
                     continue;
                 }
 
@@ -148,12 +187,19 @@ public class Navigator : MonoBehaviour
         path.Add(this.Target.Graph[destinationPosition.z][destinationPosition.y, destinationPosition.x].transform);
 
         Vector3Int prevPosition = destinationPosition;
+        HighlightTile(prevPosition, Color.green);
 
-        while (prevPosition != startPosition)
+        Debug.Log("======");
+        while (prevPosition != Vector3Int.zero && prevPosition != startPosition)
         {
+            Debug.Log(prevPosition);
+
             prevPosition = prev[prevPosition.z][prevPosition.y, prevPosition.x];
             path.Add(this.Target.Graph[prevPosition.z][prevPosition.y, prevPosition.x].transform);
+
+            HighlightTile(prevPosition, Color.green);
         }
+        Debug.Log("======");
 
         // Return path
         return path;
