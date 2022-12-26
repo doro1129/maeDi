@@ -243,6 +243,7 @@ public class GameMap : MonoBehaviour
         }
         catch
         {
+            // NullReferenceException
             return false;
         }
     }
